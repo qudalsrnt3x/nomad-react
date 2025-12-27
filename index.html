@@ -14,7 +14,7 @@
       const onClick = () => {
         // state를 변경하는 방법
         // setCounter(counter + 1); // 1. counter값을 직접 변경
-        setCounter(current => current + 1); // 2. arrow function -> 인자를 받아서 변경
+        setCounter((current) => current + 1); // 2. arrow function -> 인자를 받아서 변경
       };
       console.log("rendered");
       console.log(counter);
