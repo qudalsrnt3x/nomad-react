@@ -15,7 +15,11 @@ function App() {
     setToDos((currentArray) => [toDo, ...currentArray]);
     setToDo("");
   };
-  console.log(toDos);
+
+  const deleteToDo = (index) => {
+    // 선택된 index가 아닌 요소들만 걸러내서 새로운 배열을 만든다.
+    setToDos((currentArray) => currentArray.filter((_, i) => i !== index));
+  };
 
   return (
     <div>
@@ -29,6 +33,19 @@ function App() {
         />
         <button>Add To Do</button>
       </form>
+      <hr />
+      <ul>
+        {toDos.map((item, index) => (
+          <li key={index}>
+            {item}
+            <button
+              onClick={() => deleteToDo(index)}
+              style={{ marginLeft: "10px" }}>
+              ❌
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
