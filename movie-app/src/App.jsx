@@ -1,45 +1,19 @@
-import { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router, // 전체 라우팅 엔진 (보통 Router로 별칭 사용)
+  Routes, // Route들의 집합 (v5의 Switch 역할)
+  Route // 개별 URL 경로와 컴포넌트 매칭
+} from "react-router-dom";
+import Home from "./routes/Home";
+import Detail from "./routes/Detail";
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    const getMovies = async () => {
-      const response = await fetch(
-        `https://yts.lt/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year`
-      );
-
-      const json = await response.json();
-      setMovies(json.data.movies);
-      setLoading(false);
-    };
-
-    getMovies();
-  }, []);
-
-  console.log(movies);
   return (
-    <div>
-      {loading ? (
-        <h1>Loading...</h1>
-      ) : (
-        <div>
-          {movies.map((movie) => (
-            <div key={movie.id}>
-              <img src={movie.medium_cover_image} />
-              <h2>{movie.title}</h2>
-              <p>{movie.summary}</p>
-              <ul>
-                {movie.genres.map((g) => (
-                  <li key={g}>{g}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/movie/:id" element={<Detail />}></Route>
+      </Routes>
+    </Router>
   );
 }
 
